@@ -9,8 +9,9 @@ const ItemSchema = new Schema({
     required: true,
     maxLength: 50,
   }, //reference to the associated category
-  description: { type: String, required: true, maxLength: 200 },
+  description: { type: String, required: true, maxLength: 400 },
   price: { type: Number, required: true },
+  stock: { type: Number, required: true },
 });
 
 // Virtual for author's URL
