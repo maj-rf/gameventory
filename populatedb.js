@@ -17,7 +17,6 @@ var Item = require('./models/item');
 var Category = require('./models/category');
 
 var mongoose = require('mongoose');
-const category = require('./models/category');
 var mongoDB = userArgs[0];
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
@@ -52,25 +51,28 @@ function categoryCreate(name, cb) {
     }
     console.log('New Category' + category);
     categories.push(category);
-    cb(null, item);
+    cb(null, category);
   });
 }
 
 function createCategories(cb) {
-  async.series([
-    function (callback) {
-      categoryCreate('Consoles', callback);
-    },
-    function (callback) {
-      categoryCreate('Games', callback);
-    },
-    function (callback) {
-      categoryCreate('Accessories', callback);
-    },
-    function (callback) {
-      categoryCreate('eCredits', callback);
-    },
-  ]);
+  async.series(
+    [
+      function (callback) {
+        categoryCreate('Consoles', callback);
+      },
+      function (callback) {
+        categoryCreate('Games', callback);
+      },
+      function (callback) {
+        categoryCreate('Accessories', callback);
+      },
+      function (callback) {
+        categoryCreate('eCredits', callback);
+      },
+    ],
+    cb
+  );
 }
 
 function createItems(cb) {
@@ -100,7 +102,7 @@ function createItems(cb) {
         itemCreate(
           'The Legend of Zelda: Breath of The Wild',
           categories[1],
-          'Pro+ is the most advanced controller from 8BitDo ever. With 8BitDo Ultimate Software: Customize everything on Pro+ from button mapping, stick & trigger sensitivity, vibration control and even create macros with any button combination. Easily save your settings on a game by game basis with custom profiles.',
+          'Forget everything you know about The Legend of Zelda games. Step into a world of discovery, exploration and adventure in The Legend of Zelda: Breath of the Wild, a boundary-breaking game in the acclaimed series.',
           59.99,
           12,
           callback
@@ -110,9 +112,9 @@ function createItems(cb) {
         itemCreate(
           'Nintendo Switch OLED',
           categories[0],
-          'Pro+ is the most advanced controller from 8BitDo ever. With 8BitDo Ultimate Software: Customize everything on Pro+ from button mapping, stick & trigger sensitivity, vibration control and even create macros with any button combination. Easily save your settings on a game by game basis with custom profiles.',
+          'Feast your eyes on vivid colors and crisp contrast when you play on-the-go. Your powered-up Nintendo Switch.',
           300,
-          12,
+          1,
           callback
         );
       },
@@ -120,9 +122,9 @@ function createItems(cb) {
         itemCreate(
           'Nintendo Eshop Card ($50, US)',
           categories[3],
-          'Pro+ is the most advanced controller from 8BitDo ever. With 8BitDo Ultimate Software: Customize everything on Pro+ from button mapping, stick & trigger sensitivity, vibration control and even create macros with any button combination. Easily save your settings on a game by game basis with custom profiles.',
+          'Eshop credit for Nintendo, US Region',
           50,
-          12,
+          10,
           callback
         );
       },
