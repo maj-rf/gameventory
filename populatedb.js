@@ -106,6 +106,26 @@ function createItems(cb) {
           callback
         );
       },
+      function (callback) {
+        itemCreate(
+          'Nintendo Switch OLED',
+          categories[0],
+          'Pro+ is the most advanced controller from 8BitDo ever. With 8BitDo Ultimate Software: Customize everything on Pro+ from button mapping, stick & trigger sensitivity, vibration control and even create macros with any button combination. Easily save your settings on a game by game basis with custom profiles.',
+          300,
+          12,
+          callback
+        );
+      },
+      function (callback) {
+        itemCreate(
+          'Nintendo Eshop Card ($50, US)',
+          categories[3],
+          'Pro+ is the most advanced controller from 8BitDo ever. With 8BitDo Ultimate Software: Customize everything on Pro+ from button mapping, stick & trigger sensitivity, vibration control and even create macros with any button combination. Easily save your settings on a game by game basis with custom profiles.',
+          50,
+          12,
+          callback
+        );
+      },
     ],
     // optional callback
     cb
@@ -113,13 +133,13 @@ function createItems(cb) {
 }
 
 async.series(
-  [createGenreAuthors, createBooks, createBookInstances],
+  [createCategories, createItems],
   // Optional callback
   function (err, results) {
     if (err) {
       console.log('FINAL ERR: ' + err);
     } else {
-      console.log('BOOKInstances: ' + bookinstances);
+      console.log('Items: ' + items);
     }
     // All done, disconnect from database
     mongoose.connection.close();
