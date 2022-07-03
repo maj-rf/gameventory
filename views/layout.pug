@@ -4,4 +4,12 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
+    header
+      img.logo(src='/images/logo.svg', alt='logo')
+      nav 
+        ul.nav__links 
+          each val in ['Home', 'Items', 'Categories', 'About']
+            li.nav__link
+              a(href='#') #{val}
+              
     block content

@@ -1,8 +1,44 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-a {
-  color: #00B7FF;
+body {
+  margin: 0;
+  font: 14px 'Lucida Grande', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 20px 10%;
+  background-color: black;
+}
+
+.logo {
+  cursor: pointer;
+  color: mediumslateblue;
+  margin-right: auto;
+}
+
+.nav__links {
+  list-style: none;
+}
+
+.nav__link {
+  display: inline-block;
+  padding: 0 10px;
+}
+
+.nav__link a {
+  transition: all 0.3s ease 0s;
+  color: #fff;
+}
+
+.nav__link a:hover {
+  color: #0088a9;
 }
