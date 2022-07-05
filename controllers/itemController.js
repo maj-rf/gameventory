@@ -1,5 +1,9 @@
 const Item = require('../models/item');
 
+exports.index = function (req, res) {
+  res.render('index', { title: 'Express' });
+};
+
 //Display list of all Items.
 exports.item_list = function (req, res) {
   res.send('Item List');
