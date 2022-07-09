@@ -1,7 +1,7 @@
 const Item = require('../models/item');
 
 exports.index = function (req, res) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Gameventory.GG', desc: 'Track your Games++' });
 };
 
 //Display list of all Items.

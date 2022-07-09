@@ -42,3 +42,8 @@ header {
 .nav__link a:hover {
   color: #0088a9;
 }
+
+main {
+  display: grid;
+  place-items: center;
+}
