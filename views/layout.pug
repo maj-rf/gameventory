@@ -8,7 +8,7 @@ html
       img.logo(src='/images/logo.svg', alt='logo')
       nav 
         ul.nav__links 
-          each val in [{tag: 'Home', address:'catalog'}, {tag: 'Items', address: '/items'}, {tag: 'Categories', address:'/categories'}, {tag:'About', address:'/about'}]
+          each val in [{tag: 'Home', address:'home'}, {tag: 'Items', address: '/items'}, {tag: 'Categories', address:'/categories'}, {tag:'About', address:'/about'}]
             li.nav__link
               a(href=val.address) #{val.tag}
               
