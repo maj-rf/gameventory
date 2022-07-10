@@ -3,4 +3,12 @@ extends layout
 block content
   main 
     h1= title
-    p #{desc}
+
+    if error
+      p Error getting dynamic content.
+    else
+      p The Gameventory has the following records:
+      ul
+        li #[strong Items:] !{data.item_count}
+        li #[strong Categories:] !{data.category_count}
+        
