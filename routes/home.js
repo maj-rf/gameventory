@@ -19,6 +19,12 @@ router.get('item/:id/update', item_controller.item_update_get);
 
 router.post('item/:id/update', item_controller.item_update_post);
 
+// GET request for one item.
+router.get('/item/:id', item_controller.item_detail);
+
+// GET request for list of all items.
+router.get('/items', item_controller.item_list);
+
 /// CATEGORY ROUTES ///
 
 router.get('/category/create', category_controller.category_create_get);
