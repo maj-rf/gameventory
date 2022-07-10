@@ -1,8 +1,17 @@
+const { nextTick } = require('async');
 const Category = require('../models/category');
 
 //Display list of all Categories.
 exports.category_list = function (req, res) {
-  res.send('Category List');
+  Category.find({}, 'name')
+    .sort({ name: 1 })
+    .exec(function (err, list_category) {
+      if (err) return next(err);
+      res.render('category_list', {
+        title: 'Categories',
+        category_list: list_category,
+      });
+    });
 };
 //Handle detail page fot an category.
 exports.category_detail = function (req, res) {
