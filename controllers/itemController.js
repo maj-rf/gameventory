@@ -1,12 +1,38 @@
 const Item = require('../models/item');
-
+const Category = require('../models/category');
+const async = require('async');
 exports.index = function (req, res) {
-  res.render('index', { title: 'Gameventory.GG', desc: 'Track your Games++' });
+  async.parallel(
+    {
+      item_count: function (callback) {
+        Item.countDocuments({}, callback);
+      },
+      category_count: function (callback) {
+        Category.countDocuments({}, callback);
+      },
+    },
+    function (err, results) {
+      res.render('index', {
+        title: 'Gameventory.GG',
+        desc: 'Track your Games++',
+        error: err,
+        data: results,
+      });
+    }
+  );
 };
 
 //Display list of all Items.
 exports.item_list = function (req, res) {
-  res.send('Item List');
+  Item.find({}, 'title category')
+    .sort({ title: 1 })
+    .populate('category')
+    .exec(function (err, list_items) {
+      if (err) {
+        return next(err);
+      }
+      res.render('item_list', { title: 'Item List', item_list: list_items });
+    });
 };
 //Handle detail page fot an Item.
 exports.item_detail = function (req, res) {
