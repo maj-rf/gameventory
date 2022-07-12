@@ -1,0 +1,13 @@
+extends layout 
+block content 
+  h1 Category: #{category.name}
+  div 
+    h4 Items 
+      dl 
+        each item in category_items 
+          dt 
+            a(href=item.url) #{item.title} ($#{item.price})
+          dd #{item.description} 
+
+        else 
+          p This category has no items.
