@@ -31,7 +31,10 @@ exports.item_list = function (req, res) {
       if (err) {
         return next(err);
       }
-      res.render('item_list', { title: 'Item List', item_list: list_items });
+      res.render('item_list', {
+        title: 'Available Items',
+        item_list: list_items,
+      });
     });
 };
 //Handle detail page fot an Item.
