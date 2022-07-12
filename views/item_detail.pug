@@ -1,0 +1,9 @@
+extends layout 
+block content 
+  div(style='margin-left:20px;margin-top:20px;margin-right:20px')
+    h1 Item: #{title}
+    p #[strong Category:] #{' '} 
+      a(href=category.url) #{category.name}
+    p #[strong Description:] #{description}
+    p #[strong Price:] $#{price}
+    p #[strong Stock:] #{stock}
