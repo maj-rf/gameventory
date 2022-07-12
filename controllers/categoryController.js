@@ -1,5 +1,6 @@
-const { nextTick } = require('async');
+const async = require('async');
 const Category = require('../models/category');
+const Item = require('../models/item');
 
 //Display list of all Categories.
 exports.category_list = function (req, res) {
@@ -15,7 +16,31 @@ exports.category_list = function (req, res) {
 };
 //Handle detail page fot an category.
 exports.category_detail = function (req, res) {
-  res.send('Category');
+  async.parallel(
+    {
+      category: function (callback) {
+        Category.findById(req.params.id).exec(callback);
+      },
+      category_items: function (callback) {
+        Item.find({ category: req.params.id }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      if (results.category === null) {
+        // No results.
+        let err = new Error('Category not found');
+        err.status = 404;
+        return next(err);
+      }
+      // Success
+      res.render('category_detail', {
+        title: 'Category Detail',
+        category: results.category,
+        category_items: results.category_items,
+      });
+    }
+  );
 };
 //Display category create form on GET.
 exports.category_create_get = function (req, res) {
