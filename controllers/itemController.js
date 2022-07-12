@@ -52,6 +52,7 @@ exports.item_detail = function (req, res) {
         description: item.description,
         price: item.price,
         stock: item.stock,
+        item: item,
       });
     });
 };
