@@ -1,13 +1,14 @@
 extends layout 
 block content 
-  h1 Category: #{category.name}
-  div 
-    h4 Items 
-      dl 
-        each item in category_items 
-          dt 
-            a(href=item.url) #{item.title} ($#{item.price})
-          dd #{item.description} 
+  div(style='margin-left:20px;margin-top:20px;margin-right:20px')
+    h1 Category: #{category.name}
+    div 
+      h4 Items found: #{category_items.length}
+        dl 
+          each item in category_items 
+            dt 
+              a(href=item.url) #{item.title} ($#{item.price})
+            dd #{item.description} 
 
-        else 
-          p This category has no items.
+          else 
+            p This category has no items.

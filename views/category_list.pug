@@ -1,10 +1,11 @@
 extends layout 
 block content 
-  h1= title
+  div(style='margin-left:20px;margin-top:20px;margin-right:20px')
+    h1= title
 
-  ul 
-    each category in category_list
-      li
-        a(href=category.url) #{category.name}
-    else 
-      li There are no categories.
+    ul 
+      each category in category_list
+        li
+          a(href=category.url) #{category.name}
+      else 
+        li There are no categories.
