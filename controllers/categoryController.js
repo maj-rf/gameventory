@@ -1,4 +1,5 @@
 const async = require('async');
+const { body, validationResult } = require('express-validator');
 const Category = require('../models/category');
 const Item = require('../models/item');
 
@@ -44,12 +45,45 @@ exports.category_detail = function (req, res) {
 };
 //Display category create form on GET.
 exports.category_create_get = function (req, res) {
-  res.send('Category Create GET');
+  res.render('category_form', { title: 'Create New Category' });
 };
 //Handle Category create on POST.
-exports.category_create_post = function (req, res) {
-  res.send('Category Create POST');
-};
+exports.category_create_post = [
+  body('name', 'Category name is required')
+    .trim()
+    .isLength({ min: 1, max: 50 })
+    .escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const category = new Category({ name: req.body.name });
+
+    if (!errors.isEmpty()) {
+      // if there are errors, render form again with previous data
+      res.render('category_form', {
+        title: 'Create New Category',
+        category: category,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data is valid
+      Category.findOne({ name: req.body.name }).exec(function (
+        err,
+        dupe_category
+      ) {
+        if (err) return next(err);
+        if (dupe_category) res.redirect(dupe_category.url);
+        else {
+          category.save(function (err) {
+            if (err) return next(err);
+            res.redirect(category.url);
+          });
+        }
+      });
+    }
+  },
+];
 // Display Category delete form on GET.
 exports.category_delete_get = function (req, res) {
   res.send('CategoryDelete GET');
