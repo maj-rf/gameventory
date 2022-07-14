@@ -3,10 +3,16 @@ block content
   div(style='margin-left:20px;margin-top:20px;margin-right:20px')
     h1= title
 
-    ul 
-      each item in item_list
-        li
-          a(href=item.url) #{item.title}
-          |  [#{item.category.name}]
-      else 
-        li There are no items.
+    table(style='width:100%;text-align:center', border='1')
+      tr 
+        th Item 
+        th Category
+        th Price ($) 
+        th Stock 
+      each item in item_list 
+        tr
+          td 
+            a(href=item.url) #{item.title}
+          td #{item.category.name}
+          td #{item.price}
+          td #{item.stock}
