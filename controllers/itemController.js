@@ -93,10 +93,10 @@ exports.item_create_post = [
     .escape(),
   body('price', 'Price is required').trim().isFloat({ min: 1 }).escape(),
   body('stock', 'Stock is required').trim().isInt({ min: 1 }).escape(),
-  body('date_updated', 'Invalid date').isISO8601().toDate(),
+  //body('date_updated', 'Invalid date').isISO8601().toDate(),
   body('category.*').escape(),
 
-  (res, req, next) => {
+  (req, res, next) => {
     const errors = validationResult(req);
     const item = new Item({
       title: req.body.title,
@@ -112,11 +112,6 @@ exports.item_create_post = [
         .sort({ name: 1 })
         .exec(function (err, categories) {
           if (err) return next(err);
-          for (let i = 0; i < categories.length; i++) {
-            if (item.category.indexOf(categories[i]._id) > -1) {
-              categories[i].checked = 'true';
-            }
-          }
           res.render('item_form', {
             title: 'Create New Item',
             item: item,

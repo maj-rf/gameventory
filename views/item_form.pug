@@ -17,11 +17,11 @@ block content
       value=(undefined===item ? '' : item.price) step='.01')
     div.form-group 
       label(for='stock') Stock:
-      input#price.form-control(type='number', placeholder='17..' name='price' required='true' min='1'
+      input#stock.form-control(type='number', placeholder='17..' name='stock' required='true' min='1'
       value=(undefined===item ? '' : item.stock))
     div.form-group 
       label(for='category') Category:
-      select#categories.form-control(type='select', placeholder='Select Category' name='categories' required='true')
+      select#category.form-control(type='select', placeholder='Select Category' name='category' required='true')
         - categories.sort(function(a,b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;})
         for category in categories
           if item 
