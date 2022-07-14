@@ -47,3 +47,29 @@ main {
   display: grid;
   place-items: center;
 }
+
+.home-link {
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  margin-inline: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 16px;
+}
+
+.home-link:hover {
+  filter: brightness(0.7);
+}
+
+.btn-submit {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 16px;
+  background-color: #0088a9;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  filter: brightness(0.7);
+}
