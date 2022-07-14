@@ -27,6 +27,8 @@ exports.item_list = function (req, res) {
   Item.find({}, 'title category')
     .sort({ title: 1 })
     .populate('category')
+    .populate('price')
+    .populate('stock')
     .exec(function (err, list_items) {
       if (err) {
         return next(err);
