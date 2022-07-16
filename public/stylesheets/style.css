@@ -73,3 +73,7 @@ main {
 .btn-submit:hover {
   filter: brightness(0.7);
 }
+
+table {
+  margin-top: 1.5rem;
+}
