@@ -146,10 +146,46 @@ exports.category_delete_post = function (req, res) {
   );
 };
 // Display category update form on GET.
-exports.category_update_get = function (req, res) {
-  res.send('Category Update GET');
+exports.category_update_get = function (req, res, next) {
+  Category.findById(req.params.id).exec(function (err, theCategory) {
+    if (err) return next(err);
+    res.render('category_form', {
+      title: 'Update Category',
+      category: theCategory,
+    });
+  });
 };
+
 // Handle category update on POST.
-exports.category_update_post = function (req, res) {
-  res.render('category_form', { title: 'Create New Category' });
-};
+exports.category_update_post = [
+  body('name', 'Category name is required')
+    .trim()
+    .isLength({ min: 1, max: 50 })
+    .escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const category = new Category({ name: req.body.name, _id: req.params.id });
+
+    if (!errors.isEmpty()) {
+      // if there are errors, render form again with previous data
+      res.render('category_form', {
+        title: 'Update Category',
+        category: category,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      // Data is valid
+      Category.findByIdAndUpdate(
+        req.params.id,
+        category,
+        {},
+        function (err, theCategory) {
+          if (err) return next(err);
+          res.redirect(theCategory.url);
+        }
+      );
+    }
+  },
+];
