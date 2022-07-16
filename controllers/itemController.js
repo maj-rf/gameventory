@@ -152,10 +152,87 @@ exports.item_delete_post = function (req, res, next) {
 };
 
 // Display Item update form on GET.
-exports.item_update_get = function (req, res) {
-  res.send('Item Update GET');
+exports.item_update_get = function (req, res, next) {
+  async.parallel(
+    {
+      item: function (callback) {
+        Item.findById(req.params.id)
+          .populate('category')
+          .populate('description')
+          .populate('price')
+          .populate('stock')
+          .exec(callback);
+      },
+      categories: function (callback) {
+        Category.find({}, 'name').sort({ name: 1 }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      res.render('item_form', {
+        title: 'Create New Item',
+        categories: results.categories,
+        item: results.item,
+      });
+    }
+  );
 };
 // Handle Item update on POST.
-exports.item_update_post = function (req, res) {
-  res.send('Item Update POST');
-};
+exports.item_update_post = [
+  (req, res, next) => {
+    // convert Categories into array
+    if (!(req.body.category instanceof Array)) {
+      if (typeof req.body.category === 'undefined') req.body.category = [];
+      else req.body.category = new Array(req.body.category);
+    }
+    next();
+  },
+
+  //Validate and Sanitize
+  body('title', 'Title is required')
+    .trim()
+    .isLength({ min: 1, max: 100 })
+    .escape(),
+  body('description', 'Description is required')
+    .trim()
+    .isLength({ min: 1, max: 400 })
+    .escape(),
+  body('price', 'Price is required').trim().isFloat({ min: 1 }).escape(),
+  body('stock', 'Stock is required').trim().isInt({ min: 1 }).escape(),
+  //body('date_updated', 'Invalid date').isISO8601().toDate(),
+  body('category.*').escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const item = new Item({
+      title: req.body.title,
+      category:
+        typeof req.body.category === 'undefined' ? [] : req.body.category,
+      description: req.body.description,
+      price: req.body.price,
+      stock: req.body.stock,
+      //date_updated: req.body.date_updated,
+      _id: req.params.id, //This is required, or a new ID will be assigned!
+    });
+
+    if (!errors.isEmpty()) {
+      Category.find({}, 'name')
+        .sort({ name: 1 })
+        .exec(function (err, categories) {
+          if (err) return next(err);
+          res.render('item_form', {
+            title: 'Create New Item',
+            item: item,
+            categories: categories,
+            errors: errors.array(),
+          });
+        });
+      return;
+    } else {
+      Item.findByIdAndUpdate(req.params.id, item, {}, function (err, theitem) {
+        if (err) return next(err);
+        res.redirect(theitem.url);
+      });
+    }
+  },
+];
