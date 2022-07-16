@@ -86,11 +86,64 @@ exports.category_create_post = [
 ];
 // Display Category delete form on GET.
 exports.category_delete_get = function (req, res) {
-  res.send('CategoryDelete GET');
+  async.parallel(
+    {
+      category: function (callback) {
+        Category.findById(req.params.id).exec(callback);
+      },
+      category_items: function (callback) {
+        Item.find({ category: req.params.id }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      if (results.category === null) {
+        // No results.
+        let err = new Error('Category not found');
+        err.status = 404;
+        return next(err);
+      }
+      // Success
+      res.render('category_delete', {
+        title: 'Delete Category',
+        category: results.category,
+        category_items: results.category_items,
+      });
+    }
+  );
 };
 // Handle category delete on POST.
 exports.category_delete_post = function (req, res) {
-  res.send('Category Delete POST');
+  async.parallel(
+    {
+      category: function (callback) {
+        Category.findById(req.params.id).exec(callback);
+      },
+      category_items: function (callback) {
+        Item.find({ category: req.params.id }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) return next(err);
+      // if Category has existing associated Items
+      if (results.category_items.length > 0) {
+        res.render('category_delete', {
+          title: 'Delete Category',
+          category: results.category,
+          category_items: results.category_items,
+        });
+        return;
+      } else {
+        Category.findByIdAndRemove(
+          req.body.categoryid,
+          function deleteCategory(err) {
+            if (err) return next(err);
+            res.redirect('/home/categories');
+          }
+        );
+      }
+    }
+  );
 };
 // Display category update form on GET.
 exports.category_update_get = function (req, res) {
