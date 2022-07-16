@@ -170,7 +170,7 @@ exports.item_update_get = function (req, res, next) {
     function (err, results) {
       if (err) return next(err);
       res.render('item_form', {
-        title: 'Create New Item',
+        title: 'Update Item',
         categories: results.categories,
         item: results.item,
       });
@@ -221,7 +221,7 @@ exports.item_update_post = [
         .exec(function (err, categories) {
           if (err) return next(err);
           res.render('item_form', {
-            title: 'Create New Item',
+            title: 'Update Item',
             item: item,
             categories: categories,
             errors: errors.array(),

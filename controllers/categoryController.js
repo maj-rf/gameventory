@@ -151,5 +151,5 @@ exports.category_update_get = function (req, res) {
 };
 // Handle category update on POST.
 exports.category_update_post = function (req, res) {
-  res.send('Category Update POST');
+  res.render('category_form', { title: 'Create New Category' });
 };
