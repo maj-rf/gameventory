@@ -24,7 +24,7 @@ exports.index = function (req, res) {
 };
 
 //Display list of all Items.
-exports.item_list = function (req, res) {
+exports.item_list = function (req, res, next) {
   Item.find({}, 'title category')
     .sort({ title: 1 })
     .populate('category')
@@ -60,7 +60,7 @@ exports.item_detail = function (req, res) {
     });
 };
 //Display Item create form on GET.
-exports.item_create_get = function (req, res) {
+exports.item_create_get = function (req, res, next) {
   Category.find({}, 'name')
     .sort({ name: 1 })
     .exec(function (err, categories) {
@@ -129,13 +129,28 @@ exports.item_create_post = [
   },
 ];
 // Display Item delete form on GET.
-exports.item_delete_get = function (req, res) {
-  res.send('Item Delete GET');
+exports.item_delete_get = function (req, res, next) {
+  Item.findById(req.params.id).exec(function (err, selectedItem) {
+    if (err) return next(err);
+    if (selectedItem == null) {
+      res.redirect('/home/items');
+    }
+    res.render('item_delete', { title: 'Delete Item', item: selectedItem });
+  });
 };
 // Handle Item delete on POST.
-exports.item_delete_post = function (req, res) {
-  res.send('Item Delete POST');
+exports.item_delete_post = function (req, res, next) {
+  Item.findById(req.body.itemid).exec(function (err, selectedItem) {
+    if (err) return next(err);
+    else {
+      Item.findByIdAndRemove(req.body.itemid, function deleteItem(err) {
+        if (err) return next(err);
+        res.redirect('/home/items');
+      });
+    }
+  });
 };
+
 // Display Item update form on GET.
 exports.item_update_get = function (req, res) {
   res.send('Item Update GET');

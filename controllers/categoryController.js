@@ -16,7 +16,7 @@ exports.category_list = function (req, res) {
     });
 };
 //Handle detail page fot an category.
-exports.category_detail = function (req, res) {
+exports.category_detail = function (req, res, next) {
   async.parallel(
     {
       category: function (callback) {
@@ -44,7 +44,7 @@ exports.category_detail = function (req, res) {
   );
 };
 //Display category create form on GET.
-exports.category_create_get = function (req, res) {
+exports.category_create_get = function (req, res, next) {
   res.render('category_form', { title: 'Create New Category' });
 };
 //Handle Category create on POST.
