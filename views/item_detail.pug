@@ -8,3 +8,7 @@ block content
     p #[strong Price:] $#{price}
     p #[strong Stock:] #{stock}
     p #[strong Date Updated:] #{item.date_updated_formatted}
+
+    div
+      a.home-link(href=item.url+'/delete') Delete Book
+      a.home-link(href=item.url+'/update') Update Book
