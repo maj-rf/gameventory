@@ -1,6 +1,6 @@
 extends layout 
 block content 
-  h1 #{title}: #{item.title} 
+  h1 #{title}: #{item ? item.title : ''} 
 
   form(method='POST' action='' id='item_form')
     div.form-group 
