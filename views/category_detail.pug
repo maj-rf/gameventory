@@ -9,6 +9,9 @@ block content
             dt 
               a(href=item.url) #{item.title} ($#{item.price})
             dd #{item.description} 
-
           else 
             p This category has no items.
+    
+      div
+        a.home-link(href=category.url+'/delete') Delete Category
+        a.home-link(href=category.url+'/update') Update Category
