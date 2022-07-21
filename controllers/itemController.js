@@ -104,6 +104,7 @@ exports.item_create_post = [
       description: req.body.description,
       price: req.body.price,
       stock: req.body.stock,
+      date_added: Date.now(),
       //date_updated: req.body.date_updated,
     });
 

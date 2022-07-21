@@ -15,6 +15,7 @@ const ItemSchema = new Schema({
   price: { type: Number, required: true },
   stock: { type: Number, required: true },
   date_updated: { type: Date, default: Date.now },
+  date_added: { type: Date },
 });
 
 // Virtual for author's URL
@@ -26,6 +27,9 @@ ItemSchema.virtual('date_updated_formatted').get(function () {
   return DateTime.fromJSDate(this.date_updated).toLocaleString(
     DateTime.DATE_MED
   );
+});
+ItemSchema.virtual('date_added_formatted').get(function () {
+  return DateTime.fromJSDate(this.date_added).toLocaleString(DateTime.DATE_MED);
 });
 
 //Export model
