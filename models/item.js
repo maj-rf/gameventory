@@ -31,6 +31,17 @@ ItemSchema.virtual('date_updated_formatted').get(function () {
 ItemSchema.virtual('date_added_formatted').get(function () {
   return DateTime.fromJSDate(this.date_added).toLocaleString(DateTime.DATE_MED);
 });
+ItemSchema.virtual('date_diff').get(function () {
+  const rtf = new Intl.RelativeTimeFormat('en', {
+    localeMatcher: 'best fit',
+    numeric: 'always',
+    style: 'long',
+  });
+  const diff = Math.floor(
+    new Date(this.date_added - new Date()) / (1000 * 60 * 60 * 24)
+  );
+  return rtf.format(diff, 'days');
+});
 
 //Export model
 module.exports = mongoose.model('Item', ItemSchema);
