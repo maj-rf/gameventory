@@ -25,6 +25,9 @@ header {
   margin-right: auto;
 }
 
+.date_diff {
+  color: #189ad3;
+}
 .nav__links {
   list-style: none;
 }

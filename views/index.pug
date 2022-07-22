@@ -14,4 +14,9 @@ block content
       div.home-links
         a.home-link(href='/home/category/create') New Category
         a.home-link(href='/home/item/create') New Item
-        
+    div.recents
+      h2 Recently Added 
+      ul 
+        each item in data.recents 
+          li #{item.title} 
+            span.date_diff (#{item.date_diff}) 
