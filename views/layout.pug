@@ -2,14 +2,19 @@ doctype html
 html
   head
     title= title
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     header
-      img.logo(src='/images/logo.svg', alt='logo')
-      nav 
-        ul.nav__links 
-          each val in [{tag: 'Home', address:''}, {tag: 'Items', address: 'items'}, {tag: 'Categories', address:'categories'}, {tag:'About', address:'about'}]
-            li.nav__link
-              a(href='/home/' + val.address) #{val.tag}
-              
-    block content
+      div.container(class='row')
+        img.logo(src='/images/gg-logo.svg', alt='logo')
+        button.nav-toggle(aria-label="open navigation")
+          span.hamburger
+        nav 
+          ul.nav__links 
+            each val in [{tag: 'Home', address:''}, {tag: 'Items', address: 'items'}, {tag: 'Categories', address:'categories'}, {tag:'About', address:'about'}]
+              li.nav__link
+                a(href='/home/' + val.address) #{val.tag}
+           
+    block content 
+    script(type='text/javascript', src='/javascripts/nav.js')
