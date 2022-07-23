@@ -1,22 +1,26 @@
 extends layout
 
 block content
-  main 
-    h1= title
+  main.container.row
+      div
+        h1= title
 
-    if error
-      p Error getting dynamic content.
-    else
-      p The Gameventory has the following records:
-      ul
-        li #[strong Items:] !{data.item_count}
-        li #[strong Categories:] !{data.category_count}
-      div.home-links
-        a.home-link(href='/home/category/create') New Category
-        a.home-link(href='/home/item/create') New Item
-    div.recents
-      h2 Recently Added 
-      ul 
-        each item in data.recents 
-          li #{item.title} 
-            span.date_diff (#{item.date_diff}) 
+        if error
+          p Error getting dynamic content.
+        else
+          p Keep track of your gaming inventory in just a few clicks!
+          p The current Gameventory has the following records:
+          ul
+            li #[strong Items:] !{data.item_count}
+            li #[strong Categories:] !{data.category_count}
+          div.home-links
+            a.home-link(href='/home/category/create') New Category
+            a.home-link(href='/home/item/create') New Item
+      div.recents
+        h2 Recently Added 
+        ul.recents__container 
+          each item in data.recents 
+            li.recents__card
+              p #{item.title}
+                span.date_diff (#{item.date_diff}) 
+              img(src='https://via.placeholder.com/200')

@@ -14,6 +14,11 @@ body {
   min-height: 100vh;
 }
 
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
 ul,
 li {
   list-style: none;
@@ -34,6 +39,9 @@ li {
 header {
   padding: 20px 10%;
   background-color: var(--primary);
+  position: sticky;
+  top: 0;
+  z-index: 2;
 }
 
 .container {
@@ -42,6 +50,12 @@ header {
   margin: 0 auto;
   /* added for nav-toggle positioning */
   position: relative;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .nav-toggle {
@@ -141,6 +155,10 @@ nav {
   filter: brightness(0.8);
 }
 
+.recents {
+  text-align: center;
+}
+
 @media (min-width: 800px) {
   .nav-toggle {
     display: none;
@@ -155,7 +173,7 @@ nav {
     width: 70%;
   }
 
-  .row {
+  .flex-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -163,6 +181,18 @@ nav {
 
   .nav__links {
     flex-direction: row;
+  }
+
+  .recents__container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .recents__container > * {
+    flex-basis: 40%;
   }
 }
 
@@ -189,18 +219,7 @@ main {
   place-items: center;
 }
 
-.home-link {
-  text-decoration: none;
-  color: white;
-  background-color: black;
-  margin-inline: 0.5rem;
-  padding: 0.5rem 1rem;
-  border-radius: 16px;
-}
 
-.home-link:hover {
-  filter: brightness(0.7);
-}
 
 .btn-submit {
   border: none;
