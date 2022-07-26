@@ -6,6 +6,10 @@
 
 :root {
   --primary: #2d383a;
+  --accent-blue: #189ad3;
+  --dark: #000;
+  --light: #fff;
+  --neutral: #eeeeee;
 }
 
 body {
@@ -26,26 +30,16 @@ li {
   margin: 0;
 }
 
-.logo {
-  cursor: pointer;
-  height: 3rem;
-  width: auto;
+a {
+  font-weight: 900;
 }
 
 .date_diff {
-  color: #189ad3;
-}
-
-header {
-  padding: 20px 10%;
-  background-color: var(--primary);
-  position: sticky;
-  top: 0;
-  z-index: 2;
+  color: var(--accent-blue);
 }
 
 .container {
-  width: 80%;
+  width: 90%;
   max-width: 1200px;
   margin: 0 auto;
   /* added for nav-toggle positioning */
@@ -56,6 +50,21 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/*  HEADER */
+header {
+  padding: 20px 10%;
+  background-color: var(--primary);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.logo {
+  cursor: pointer;
+  height: 3rem;
+  width: auto;
 }
 
 .nav-toggle {
@@ -88,7 +97,7 @@ header {
   display: block;
   margin: 0 auto;
   height: 3px;
-  background: white;
+  background: var(--light);
 }
 
 .hamburger::before,
@@ -139,13 +148,13 @@ nav {
 }
 
 .nav__link {
-  background-color: #fff;
+  background-color: var(--light);
   width: 70%;
   border-radius: 0.5rem;
 }
 
 .nav__link > a {
-  color: black;
+  color: var(--dark);
   text-decoration: none;
   text-transform: uppercase;
   font-weight: 600;
@@ -157,6 +166,27 @@ nav {
 
 .recents {
   text-align: center;
+}
+
+/* ITEMS */
+table {
+  border-collapse: collapse;
+}
+table tr:hover {
+  transition: all 0.3s;
+  background-color: #ffdc00;
+}
+th {
+  background-color: var(--dark);
+  color: var(--light);
+  padding: 0.5rem 0;
+  text-transform: uppercase;
+}
+tr:nth-child(even) {
+  background-color: var(--neutral);
+}
+td {
+  padding: 0.5rem 0.2rem;
 }
 
 @media (min-width: 800px) {
