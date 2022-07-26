@@ -264,6 +264,28 @@ td {
   padding: 0.5rem 0.2rem;
 }
 
+/* ITEM FORM */
+fieldset {
+  width: 500px;
+  max-width: 80vw;
+  text-align: left;
+}
+legend {
+  font-size: 20px;
+}
+
+label {
+  display: block;
+}
+
+input {
+  padding: 0.5rem;
+}
+input#title,
+textarea {
+  width: 20rem;
+}
+
 @media (min-width: 800px) {
   .nav-toggle {
     display: none;
