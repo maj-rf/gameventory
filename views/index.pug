@@ -2,7 +2,7 @@ extends layout
 
 block content
   main.container.row
-      div
+      section.top
         h1= title
 
         if error
@@ -14,9 +14,9 @@ block content
             li #[strong Items:] !{data.item_count}
             li #[strong Categories:] !{data.category_count}
           div.home-links
-            a.home-link(href='/home/category/create') New Category
-            a.home-link(href='/home/item/create') New Item
-      div.recents
+            a.home-link(href='/home/category/create') Add Category  
+            a.home-link(href='/home/item/create') Add Item
+      section.recents
         h2 Recently Added 
         ul.recents__container 
           each item in data.recents 
@@ -26,4 +26,4 @@ block content
                 p #{item.title}
                 span.tag #{item.category.name}
                 span.date_diff  (#{item.date_diff}) 
-              a.check-btn(href=item.url) Check
+              a.check-btn.home-link(href=item.url) Check
