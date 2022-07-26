@@ -6,7 +6,11 @@ exports.index = function (req, res) {
   async.parallel(
     {
       recents: function (callback) {
-        Item.find({}).sort({ date_added: -1 }).limit(4).exec(callback);
+        Item.find({})
+          .sort({ date_added: -1 })
+          .populate('category')
+          .limit(4)
+          .exec(callback);
       },
       item_count: function (callback) {
         Item.countDocuments({}, callback);
