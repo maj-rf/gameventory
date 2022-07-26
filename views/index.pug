@@ -21,6 +21,9 @@ block content
         ul.recents__container 
           each item in data.recents 
             li.recents__card
-              p #{item.title}
+              img.card__img(src='https://via.placeholder.com/300x200')
+              div.card__details
+                p #{item.title}
+                span.tag #{item.category.name}
                 span.date_diff  (#{item.date_diff}) 
-              img(src='https://via.placeholder.com/200')
+              a.check-btn(href=item.url) Check
