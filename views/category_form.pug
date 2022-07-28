@@ -1,15 +1,17 @@
 extends layout 
 block content 
-  h1 #{title}: #{category ? category.name : ''}
+  section 
+    div.container.row
+      h1 #{title}: #{category ? category.name : ''}
 
-  form(method='POST' action='')
-    div.form-group
-      label(for='name') Category:
-      input#name.form-control(type='text', placeholder='Games, Accessories etc.' name='name' 
-      value=(undefined===category ? '' : category.name))
-    button.btn-submit(type='submit') Submit
+      form.category_form(method='POST' action='')
+        div.form-group
+          label(for='name') Category:
+          input#name.form-control(type='text', placeholder='Games, Accessories etc.' name='name' 
+          value=(undefined===category ? '' : category.name))
+        button.btn-submit(type='submit') Submit
 
-  if errors 
-    ul 
-      for error in errors 
-        li!=error.msg
+      if errors 
+        ul 
+          for error in errors 
+            li!=error.msg
