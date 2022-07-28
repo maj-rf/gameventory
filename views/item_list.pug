@@ -14,7 +14,7 @@ block content
       each item in item_list 
         tr
           td 
-            a(href=item.url) #{item.title}
+            a.style-link(href=item.url) #{item.title}
           td #{item.category.name}
           td #{item.price}
           td #{item.stock}

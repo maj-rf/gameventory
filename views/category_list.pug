@@ -4,9 +4,9 @@ block content
     h1= title
     a.home-link(href='/home/category/create') Add Category
     
-    ul 
+    ul.category-list 
       each category in category_list
-        li
-          a(href=category.url) #{category.name}
+        li.category
+          a.style-link(href=category.url) #{category.name}
       else 
         li There are no categories.
