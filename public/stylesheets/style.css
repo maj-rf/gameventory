@@ -10,9 +10,11 @@
   --dark: #000;
   --light: #fff;
   --neutral: #eeeeee;
+  --accent-green: #4dc884;
 }
 
 body {
+  position: relative;
   margin: 0;
   font-family: 'Poppins', sans-serif;
   min-height: 100vh;
@@ -36,8 +38,32 @@ a {
   font-weight: 900;
 }
 
+footer {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
 .date_diff {
   color: var(--accent-blue);
+}
+
+.btn-submit {
+  cursor: pointer;
+  border: none;
+  text-transform: uppercase;
+  font-size: 19px;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  background-color: var(--accent-green);
+  color: var(--light);
+  text-decoration: none;
+  border-bottom: 5px solid lightblue;
+}
+
+.btn-submit:hover {
+  filter: brightness(1.1);
 }
 
 .container {
@@ -199,6 +225,9 @@ section h1 {
 .recents {
   padding-top: 0;
   text-align: center;
+  background-color: rgba(109, 161, 234, 0.3);
+  border-radius: 16px;
+  margin-bottom: 5rem; /*quick fix to make space for footer*/
 }
 .recents__container {
   margin: 0 auto;
@@ -242,7 +271,9 @@ section h1 {
 /* ITEMS */
 table {
   margin-top: 1rem;
+  margin-bottom: 2rem;
   border-collapse: collapse;
+  font-size: clamp(9px, 2vw, 19px);
 }
 table tr:hover {
   transition: all 0.3s;
@@ -269,21 +300,41 @@ fieldset {
   width: 500px;
   max-width: 80vw;
   text-align: left;
+  border-color: var(--accent-blue);
+  border-radius: 16px;
 }
 legend {
   font-size: 20px;
+  font-weight: 900;
 }
-
+.form-group {
+  margin-bottom: 0.5rem;
+}
 label {
   display: block;
+  font-weight: 700;
 }
 
-input {
-  padding: 0.5rem;
-}
-input#title,
+input,
 textarea {
-  width: 20rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+/* Category */
+.category-list {
+  margin-top: 2rem;
+}
+
+.style-link {
+  text-decoration: none;
+  color: var(--accent-blue);
+  padding: 0.2rem 0.7rem;
+  border-radius: 16px;
+}
+
+.style-link:hover {
+  background-color: white;
 }
 
 @media (min-width: 800px) {
