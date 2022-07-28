@@ -14,7 +14,7 @@ block content
         div.form-group 
           label(for='price') Price:
           input#price.form-control(type='number', placeholder='$29.99...' name='price' required='true'
-          value=(undefined===item ? '' : item.price) step='.01')
+          value=(undefined===item ? '' : item.price) step='.01' min='1')
         div.form-group 
           label(for='stock') Stock:
           input#stock.form-control(type='number', placeholder='17..' name='stock' required='true' min='1'
