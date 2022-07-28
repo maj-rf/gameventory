@@ -1,10 +1,12 @@
 extends layout 
-block content 
-  h1 #{title}: #{item.title}
+block content
+  section 
+    div.container.row
+      h1 #{title}: #{item.title}
 
-  p Do you really want to delete this Item?
+      p Do you really want to delete this Item?
 
-  form(method='POST' action='')
-    div.form-group 
-      input#itemid.form-control(type='hidden', name='itemid', required='true', value=item._id)
-    button.btn-submit(type='submit') Delete 
+      form(method='POST' action='')
+        div.form-group 
+          input#itemid.form-control(type='hidden', name='itemid', required='true', value=item._id)
+        button.btn-submit.delete(type='submit') Delete 

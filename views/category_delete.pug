@@ -1,26 +1,28 @@
 extends layout
 
 block content
-  h1 #{title}: #{category.name}
+  section.category_delete 
+    div.container.row
+      h1 #{title}: #{category.name}
 
-  if category_items.length
+      if category_items.length
 
-    p #[strong Delete the following items before attempting to delete this category.]
+        p #[strong Delete the following items before attempting to delete this category.]
 
-    div(style='margin-left:20px;margin-top:20px')
+        div(style='margin-left:20px;margin-top:20px')
 
-      h4 Items found: #{category_items.length}
-      dl 
-          each item in category_items 
-            dt 
-              a(href=item.url) #{item.title} ($#{item.price})
-            dd #{item.description} 
+          h4 Items found: #{category_items.length}
+          dl 
+              each item in category_items 
+                dt 
+                  a.style-link(href=item.url) #{item.title} ($#{item.price})
+                dd #{item.description} 
 
-  else
-    p Do you really want to delete this Category?
+      else
+        p Do you really want to delete this Category?
 
-    form(method='POST' action='')
-      div.form-group
-        input#categoryid.form-control(type='hidden',name='categoryid', required='true', value=category._id )
+        form(method='POST' action='')
+          div.form-group
+            input#categoryid.form-control(type='hidden',name='categoryid', required='true', value=category._id )
 
-      button.btn-submit(type='submit') Delete
+          button.btn-submit.delete(type='submit') Delete
