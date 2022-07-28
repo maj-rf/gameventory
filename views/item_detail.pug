@@ -1,15 +1,17 @@
 extends layout 
 block content 
-  div(style='margin-left:20px;margin-top:20px;margin-right:20px')
-    h1 Item: #{title}
-    p #[strong Category:] #{' '} 
-      a(href=category.url) #{category.name}
-    p #[strong Description:] #{description}
-    p #[strong Price:] $#{price}
-    p #[strong Stock:] #{stock}
-    p #[strong Date Added:] #{item.date_added_formatted}
-    p #[strong Last Update:] #{item.date_updated_formatted}
-
-    div
-      a.home-link(href=item.url+'/delete') Delete Item
+  section.item_detail
+    div 
+      a.home-link.delete(href=item.url+'/delete') Delete Item
       a.home-link(href=item.url+'/update') Update Item
+    div.container.item_container 
+      img(src="https://via.placeholder.com/300x200", alt="placeholder") 
+      div.item_summary
+        h1 Item: #{title}
+        p #[strong Category:] #{' '} 
+          a.style-link(href=category.url) #{category.name}
+        p #[strong Description:] #{description}
+        p #[strong Price:] $#{price}
+        p #[strong Stock:] #{stock}
+        p #[strong Date Added:] #{item.date_added_formatted}
+        p #[strong Last Update:] #{item.date_updated_formatted}

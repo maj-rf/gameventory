@@ -1,17 +1,17 @@
 extends layout 
 block content 
-  div(style='margin-left:20px;margin-top:20px;margin-right:20px')
-    h1 Category: #{category.name}
-    div 
-      h4 Items found: #{category_items.length}
-        dl 
-          each item in category_items 
-            dt 
-              a(href=item.url) #{item.title} ($#{item.price})
-            dd #{item.description} 
-          else 
-            p This category has no items.
-    
+  section.category_detail 
+    div.container.row
+      h1 Category: #{category.name}
       div
-        a.home-link(href=category.url+'/delete') Delete Category
-        a.home-link(href=category.url+'/update') Update Category
+          a.home-link.delete(href=category.url+'/delete') Delete Category
+          a.home-link(href=category.url+'/update') Update Category
+      div 
+        h4 Items found: #{category_items.length}
+          dl.category_items 
+            each item in category_items 
+              dt 
+                a.style-link(href=item.url) #{item.title} ($#{item.price})
+              dd #{item.description} 
+            else 
+              p This category has no items.
