@@ -345,6 +345,7 @@ textarea {
 
 /* ITEM DETAIL */
 .item_container {
+  max-width: 90vw;
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
@@ -356,13 +357,16 @@ textarea {
   margin-bottom: 2rem;
 }
 .img_container {
-  width: clamp(400px, 30vw, 60%);
-  height: 300px;
+  width: clamp(250px, 20vw, 50%);
+  height: 200px;
 }
 
 .item_summary {
-  width: clamp(400px, 30vw, 60%);
+  padding: 0 0.5rem;
+  max-width: 100%;
+  flex-basis: 40%;
   text-align: left;
+  font-size: clamp(12px, 2vw, 19px);
 }
 
 /*CATEGORY DETAIL*/
