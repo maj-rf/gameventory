@@ -2,6 +2,18 @@ const Item = require('../models/item');
 const Category = require('../models/category');
 const async = require('async');
 const { body, validationResult } = require('express-validator');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+
+const storage = multer.diskStorage({
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
 exports.index = function (req, res) {
   async.parallel(
     {
@@ -48,7 +60,7 @@ exports.item_list = function (req, res, next) {
     });
 };
 //Handle detail page fot an Item.
-exports.item_detail = function (req, res) {
+exports.item_detail = function (req, res, next) {
   Item.findById(req.params.id)
     .populate('category')
     .populate('description')
@@ -80,6 +92,7 @@ exports.item_create_get = function (req, res, next) {
 };
 //Handle Item create on POST.
 exports.item_create_post = [
+  upload.single('image'),
   (req, res, next) => {
     // convert Categories into array
     if (!(req.body.category instanceof Array)) {
@@ -103,8 +116,14 @@ exports.item_create_post = [
   //body('date_updated', 'Invalid date').isISO8601().toDate(),
   body('category.*').escape(),
 
-  (req, res, next) => {
+  function (req, res, next) {
     const errors = validationResult(req);
+    const img = fs.readFileSync(req.file?.path);
+    const encoded_image = img.toString('base64');
+    const image = {
+      mimetype: req.file.mimetype,
+      imageBuffer: Buffer.from(encoded_image, 'base64'),
+    };
     const item = new Item({
       title: req.body.title,
       category: req.body.category,
@@ -112,6 +131,7 @@ exports.item_create_post = [
       price: req.body.price,
       stock: req.body.stock,
       date_added: Date.now(),
+      image: image,
       //date_updated: req.body.date_updated,
     });
 
@@ -187,6 +207,7 @@ exports.item_update_get = function (req, res, next) {
 };
 // Handle Item update on POST.
 exports.item_update_post = [
+  upload.single('image'),
   (req, res, next) => {
     // convert Categories into array
     if (!(req.body.category instanceof Array)) {
@@ -210,8 +231,9 @@ exports.item_update_post = [
   //body('date_updated', 'Invalid date').isISO8601().toDate(),
   body('category.*').escape(),
 
-  (req, res, next) => {
+  async (req, res, next) => {
     const errors = validationResult(req);
+    const { image } = await Item.findById(req.params.id);
     const item = new Item({
       title: req.body.title,
       category:
@@ -219,6 +241,7 @@ exports.item_update_post = [
       description: req.body.description,
       price: req.body.price,
       stock: req.body.stock,
+      image: image,
       //date_updated: req.body.date_updated,
       _id: req.params.id, //This is required, or a new ID will be assigned!
     });
@@ -236,11 +259,31 @@ exports.item_update_post = [
           });
         });
       return;
-    } else {
-      Item.findByIdAndUpdate(req.params.id, item, {}, function (err, theitem) {
-        if (err) return next(err);
-        res.redirect(theitem.url);
-      });
     }
+    if (!req.file) {
+      console.log('test');
+      await Item.findByIdAndUpdate(req.params.id, item);
+    } else {
+      const img = fs.readFileSync(req.file.path);
+      const encoded_image = img.toString('base64');
+      const image = {
+        mimetype: req.file.mimetype,
+        imageBuffer: Buffer.from(encoded_image, 'base64'),
+      };
+      const item = new Item({
+        title: req.body.title,
+        category:
+          typeof req.body.category === 'undefined' ? [] : req.body.category,
+        description: req.body.description,
+        price: req.body.price,
+        stock: req.body.stock,
+        image: image,
+        //date_updated: req.body.date_updated,
+        _id: req.params.id, //This is required, or a new ID will be assigned!
+      });
+
+      await Item.findByIdAndUpdate(req.params.id, item);
+    }
+    res.redirect(item.url);
   },
 ];

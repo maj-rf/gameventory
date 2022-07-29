@@ -16,6 +16,7 @@ const ItemSchema = new Schema({
   stock: { type: Number, required: true },
   date_updated: { type: Date, default: Date.now },
   date_added: { type: Date },
+  image: { mimetype: { type: String }, imageBuffer: { type: Buffer } },
 });
 
 // Virtual for author's URL
@@ -41,6 +42,12 @@ ItemSchema.virtual('date_diff').get(function () {
     new Date(this.date_added - new Date()) / (1000 * 60 * 60 * 24)
   );
   return rtf.format(diff, 'days');
+});
+
+ItemSchema.virtual('imageurl').get(function () {
+  return `data:${
+    this.image.mimetype
+  };base64,${Buffer.from(this.image.imageBuffer).toString('base64')}`;
 });
 
 //Export model

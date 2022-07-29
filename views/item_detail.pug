@@ -4,8 +4,9 @@ block content
     div 
       a.home-link.delete(href=item.url+'/delete') Delete Item
       a.home-link(href=item.url+'/update') Update Item
-    div.container.item_container 
-      img(src="https://via.placeholder.com/300x200", alt="placeholder") 
+    div.container.item_container
+      div.img_container
+        img(src=item.imageurl alt="placeholder")  
       div.item_summary
         h1 Item: #{title}
         p #[strong Category:] #{' '} 
