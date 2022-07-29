@@ -234,12 +234,6 @@ exports.item_update_post = [
   async (req, res, next) => {
     const errors = validationResult(req);
     const { image } = await Item.findById(req.params.id);
-    const title = req.body.title;
-    const category =
-      typeof req.body.category === 'undefined' ? [] : req.body.category;
-    const description = req.body.description;
-    const price = req.body.price;
-    const stock = req.body.stock;
     const item = new Item({
       title: req.body.title,
       category:
