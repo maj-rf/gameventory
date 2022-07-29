@@ -21,7 +21,8 @@ block content
         ul.recents__container 
           each item in data.recents 
             li.recents__card
-              img.card__img(src=item.imageurl)
+              div.card_img_container
+                img.card__img(src=item.imageurl)
               div.card__details
                 p #{item.title}
                 span.tag #{item.category.name}
