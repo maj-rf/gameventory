@@ -1,8 +1,8 @@
 extends layout 
 block content 
-  section 
+  section
     div.container.row
-      form(method='POST' action='' id='item_form')
+      form(method='POST' action='' id='item_form' enctype='multipart/form-data')
         fieldset
           legend #{title}: #{item ? item.title : ''} 
           div.form-group 
@@ -11,7 +11,7 @@ block content
             value=(undefined===item ? '' : item.title))
           div.form-group 
             label(for='description') Description:
-            textarea#description.form-control(placeholder='Item Description...' name='description' required='true' form="item_form" rows='10' cols='40') #{value=(undefined===item ? '' : item.description)}
+            textarea#description.form-control(placeholder='Item Description...' name='description' required='true' form="item_form" rows='8' cols='40') #{value=(undefined===item ? '' : item.description)}
           div.form-group 
             label(for='price') Price:
             input#price.form-control(type='number', placeholder='$29.99...' name='price' required='true'
@@ -29,6 +29,9 @@ block content
                   option(value=category._id selected=(category._id.toString() === item.category._id.toString() ? 'selected' : false)) #{category.name}
                 else 
                   option(value=category._id) #{category.name}
+          div.form-group
+            label(for='image') Upload Image:
+            input(type='file' name='image' accept="image/*" id="image" required)
           button.btn-submit(type='submit') Submit 
 
         if errors   
