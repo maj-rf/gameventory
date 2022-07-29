@@ -1,5 +1,11 @@
 # Project: Inventory App (CRUD)
 
+[Live Preview here!](https://salty-wildwood-48485.herokuapp.com/home/)
+
+![imgur](https://i.imgur.com/os9yyyC.png)
+
+![imgur_mobile](https://i.imgur.com/fgsv17Y.png)
+
 ## Features and Functionalites
 
 An Inventory Management Web application that stores and keeps track of your items. Update and delete your current items accordingly.
