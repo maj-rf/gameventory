@@ -303,6 +303,7 @@ fieldset {
   text-align: left;
   border-color: var(--accent-blue);
   border-radius: 16px;
+  margin-bottom: 2rem;
 }
 legend {
   font-size: 20px;
@@ -342,6 +343,9 @@ textarea {
 .item_detail > div {
   margin-bottom: 2rem;
   font-size: clamp(12px, 2.75vw, 19px);
+}
+.img_container {
+  width: 50%;
 }
 .item_container {
   display: flex;
